@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta de un producto</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Registrar un producto</h1>
+    <form action="/api/productos" method="POST">
+        <div class="input-group">
+            <label for="title">Nombre del Producto:</label>
+            <input id="title" name="title" type="text" required="true">
+        </div>
+        <div class="input-group">
+            <label for="price">Precio Unitario:</label>
+            <input id="price" name="price" type="number" min="0" required="true">
+        </div>
+        <div class="input-group">
+            <label for="thumbnail">URL de Imagen:</label>
+            <input id="thumbnail" name="thumbnail" type="text" required="true">
+        </div>
+        <input class="submit" type="submit" value="Enviar">
+    </form>
+</body>
+</html>
