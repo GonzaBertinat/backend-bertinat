@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/productos.css">
+    <title>Productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="mt-3 mb-3">Listado de Productos</h1>
+                </div>
+            </div>
+            <% if(products.length > 0) { %>
+                <div class="productos">
+                    <div class="productos__header">
+                        <div class="row">
+                            <div class="col-4 d-flex justify-content-center">
+                                <span>Nombre</span>
+                            </div>
+                            <div class="col-4 d-flex justify-content-center">
+                                <span>Precio</span>
+                            </div>
+                            <div class="col-4 d-flex justify-content-center">
+                                <span>Foto</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="productos__content">
+                        <ul>
+                            <% products.forEach(product => { %>
+                                <li class="producto">
+                                    <div class="row">
+                                        <div class="col-4 d-flex align-items-center">
+                                            <span class="producto__title"><%= product.title %></span>
+                                        </div>
+                                        <div class="col-4 d-flex justify-content-center align-items-center">
+                                            <span>$ <%= product.price %></span>
+                                        </div>
+                                        <div class="col-4 d-flex justify-content-center align-items-center">
+                                            <div class="producto__image">
+                                                <img src="<%= product.thumbnail %>" alt="<%= product.title %>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="row">
+                    <div class="col-12 productos__empty">
+                        <h2>NO HAY PRODUCTOS</h2>
+                    </div>
+                </div>
+            <% } %>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center mt-3 mb-3">
+                    <a href="/">
+                        <button type="button" class="btn btn-primary">Cargar Producto</button>
+                    </a>
+                </div> 
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
