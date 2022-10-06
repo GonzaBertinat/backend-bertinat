@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": 1663211159057,
+    "products": [],
+    "id": 1
+  },
+  {
+    "timestamp": 1663214979094,
+    "products": [
+      {
+        "id": 6,
+        "title": "GONZALITO",
+        "price": 888888,
+        "thumbnail": "https://notitotal.com/wp-content/uploads/2022/05/Dua-Lipa-Single-Visual-540x674px-mob.jpg",
+        "timestamp": 1663214280734,
+        "description": "DESCRIPCION",
+        "code": "CODIGO",
+        "stock": 9999999,
+        "units": 1
+      }
+    ],
+    "id": 2
+  }
+]
