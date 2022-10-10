@@ -1,0 +1,52 @@
+[
+  {
+    "timestamp": 1665358843678,
+    "title": "Producto 3",
+    "description": "Descripcion",
+    "code": "XX123",
+    "price": 30000,
+    "thumbnail": "URL 3",
+    "stock": 10,
+    "id": 1
+  },
+  {
+    "timestamp": 1665358846830,
+    "title": "Producto 3",
+    "description": "Descripcion",
+    "code": "XX123",
+    "price": 30000,
+    "thumbnail": "URL 3",
+    "stock": 10,
+    "id": 2
+  },
+  {
+    "timestamp": 1665358849243,
+    "title": "Producto 3",
+    "description": "Descripcion",
+    "code": "XX123",
+    "price": 30000,
+    "thumbnail": "URL 3",
+    "stock": 10,
+    "id": 3
+  },
+  {
+    "timestamp": 1665358851185,
+    "title": "Producto 3",
+    "description": "Descripcion",
+    "code": "XX123",
+    "price": 30000,
+    "thumbnail": "URL 3",
+    "stock": 10,
+    "id": 4
+  },
+  {
+    "timestamp": 1665358853211,
+    "title": "Producto 3",
+    "description": "Descripcion",
+    "code": "XX123",
+    "price": 30000,
+    "thumbnail": "URL 3",
+    "stock": 10,
+    "id": 5
+  }
+]
