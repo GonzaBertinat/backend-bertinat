@@ -1,0 +1,57 @@
+Lista de comandos a ejecutar para levantar todas las instancias de servidores de todo el desafío:
+
+1. NODEMON
+-Ejecución de servidor
+    nodemon server.js -- --port 3000                --> Modo FORK por default
+    nodemon server.js -- --port 3000 --modo FORK    --> Modo FORK
+    nodemon server.js -- --port 3000 --modo CLUSTER --> Modo CLUSTER
+-Verificando del número de procesos tomados por node (En mi caso estoy en MacOS)
+   ps auxc | grep node
+
+   Resultados:
+   --> Modo FORK: 2 procesos (1 del server + 1 extra por nodemon)
+   --> Modo CLUSTER: 10 procesos (1 proceso principal + 8 workers + 1 extra por nodemon)
+
+2. FOREVER
+-Ejecutar el servidor
+    forever start --watch server.js --port 3000 --modo FORK     --> Modo FORK
+    forever start --watch server.js --port 3000 --modo CLUSTER  --> Modo CLUSTER
+-Listar los procesos por Forever
+    forever list
+-Listar los procesos por sistema operativo
+    ps auxc | grep node
+
+    Resultados:
+    --> Modo FORK: 2 procesos (1 del server + 1 extra por forever)
+    --> Modo CLUSTER: 10 procesos (1 proceso principal + 8 workers + 1 extra por forever)
+-Finalizar procesos
+    forever stopall
+
+3. PM2
+-Ejecutar el servidor:
+    NOTA: Se ejecuta modo fork de pm2 (sin "-i max"), y se aplica el modo real (fork/cluster) según el parámetro --modo
+    pm2 start server.js --watch -- --port 3000 --modo FORK     --> Modo FORK
+    pm2 start server.js --watch -- --port 3000 --modo CLUSTER  --> Modo CLUSTER
+-Listar los procesos por PM2 
+    pm2 list
+-Listar los procesos por sistema operativo
+    ps auxc | grep server.js
+
+    Resultados:
+    --> Modo FORK: 1 proceso principal
+    --> Modo CLUSTER: 9 procesos (1 proceso principal + 8 workers)
+-Finalizar proceso
+    pm2 stop server
+    pm2 delete server
+
+4. NGINX
+-Se levanta NGINX
+    nginx
+-Se levantan todas las instancias según la última configuración solicitada en la consigna
+    -Consultas a /api/randoms: cluster de servidores - 4 instancias - puertos 8082, 8083, 8084 y 8085.
+        pm2 start server.js --name="Server1" --watch -- --port 8082 --modo CLUSTER
+        pm2 start server.js --name="Server2" --watch -- --port 8083 --modo CLUSTER
+        pm2 start server.js --name="Server3" --watch -- --port 8084 --modo CLUSTER
+        pm2 start server.js --name="Server4" --watch -- --port 8085 --modo CLUSTER
+    -Resto de consultas: servidor individual - puerto 8080.
+        pm2 start server.js --name="Server5" --watch -- --port 8080 --modo FORK
