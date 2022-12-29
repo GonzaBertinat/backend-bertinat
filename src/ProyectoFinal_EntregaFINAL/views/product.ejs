@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/ejs.min.js"></script>
+    <!-- <script src="/js/index.js"></script> -->
+    <!-- <script src="/js/products.js"></script>  -->
+    <script src="/js/product.js"></script>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="user-info">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="user-info__bienvenida">
+                            Bienvenido/a <span id="user-email"><%= user.email %></span>
+                        </p>
+                    </div>
+                </div>              
+            </div>
+            <div class="menu">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <nav class="menu__navegacion">
+                            <ul class="menu__navegacion__enlaces">
+                                <li class="menu__navegacion__enlace">
+                                    <a href="/productos">Productos</a>
+                                </li>
+                                <li class="menu__navegacion__enlace">
+                                    <a href="/profile">Mis datos</a>
+                                </li>
+                                <li class="menu__navegacion__enlace">
+                                    <a href="/carrito">Carrito</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <form class="logout__form" action="/logout" method="POST">
+                            <button type="submit">Desloguear</button>
+                        </form>
+                    </div>
+                </div>              
+            </div>
+            <% if(product) { %>
+                <div class="row">
+                    <div class="col-11 producto-card">
+                        <input id="cartId" type="hidden" value="<%= user.cartId %>">
+                        <input id="productId" type="hidden" value="<%= product.id %>">
+                        <div class="row">
+                            <div class="col-11 col-md-8 producto-card__image-container">
+                                <div class="producto-card__image">
+                                    <img src="<%= product.thumbnail %>" alt="<%= product.title %>">
+                                </div>
+                            </div>
+                            <div class="col-11 col-md-9 producto-card__info">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <span>Producto:</span>
+                                    </div>
+                                    <div class="col-8">
+                                        <span><%= product.title %></span>
+                                    </div>
+                                    <div class="col-4">
+                                        <span>Descripción:</span>
+                                    </div>
+                                    <div class="col-8">
+                                        <span><%= product.description %></span>
+                                    </div>
+                                    <div class="col-4">
+                                        <span>Precio:</span>
+                                    </div>
+                                    <div class="col-8">
+                                        <span>$ <%= product.price %></span>
+                                    </div>
+                                    <div class="col-4">
+                                        <span>Stock:</span>
+                                    </div>
+                                    <div class="col-8">
+                                        <span id="stock-producto"><%= product.stock %></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 producto-card__add">
+                                <div class="producto-card__selector">
+                                    <button class="restar-button" onclick="removeUnit()">-</button>
+                                    <span class="cantidad-unidades">0</span>
+                                    <button class="sumar-button" onclick="addUnit()">+</button>
+                                </div>
+                                <div class="producto-card__cart-button">
+                                    <button onclick="addToCart()">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="producto-not-found">
+                    <p>El producto solicitado no existe</p>    
+                </div>
+                <div class="producto-button">
+                    <a href="/productos">
+                        <button class="boton-navegacion">Ver catálogo</button>
+                    </a>
+                </div>
+                
+            <% } %>
+        </div>        
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>

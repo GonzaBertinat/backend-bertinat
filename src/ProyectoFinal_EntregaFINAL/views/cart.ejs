@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Carrito</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="user-info">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="user-info__bienvenida">
+                            Bienvenido/a <span id="user-email"><%= user.email %></span>
+                        </p>
+                    </div>
+                </div>              
+            </div>
+            <div class="menu">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <nav class="menu__navegacion">
+                            <ul class="menu__navegacion__enlaces">
+                                <li class="menu__navegacion__enlace">
+                                    <a href="/productos">Productos</a>
+                                </li>
+                                <li class="menu__navegacion__enlace">
+                                    <a href="/profile">Mis datos</a>
+                                </li>
+                                <li class="menu__navegacion__enlace">
+                                    <a href="#carrito">Carrito</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <form class="logout__form" action="/logout" method="POST">
+                            <button type="submit">Desloguear</button>
+                        </form>
+                    </div>
+                </div>              
+            </div>
+            <div id="carrito">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="carrito__title mt-3 mb-3">Mi Carrito</h2>
+                    </div>
+                </div>
+                <% if(products.length > 0) { %>
+                    <div class="col-12">
+                        <div class="carrito__header">
+                            <span class="carrito__header-imagen">Imagen</span>
+                            <span class="carrito__header-producto">Producto</span>
+                            <span class="carrito__header-cantidad">Cantidad</span>
+                            <span class="carrito__header-unitario">Precio Unitario</span>
+                            <span class="carrito__header-subtotal">Subtotal</span>
+                            <span class="carrito__header-eliminar">Eliminar</span>
+                        </div>
+                        <div class="carrito__items">
+                            <% products.forEach(product => { %>
+                                <div class="carrito__item">
+                                    <div class="carrito__item-imagen">
+                                        <div class="carrito__item-imagen-container">
+                                            <img src="<%= product.thumbnail %>" alt="<%= product.title %>">
+                                        </div>
+                                    </div>
+                                    <div class="carrito__item-producto">
+                                        <%= product.title %>
+                                    </div>
+                                    <div class="carrito__item-cantidad">
+                                        <%= product.units %>
+                                    </div>
+                                    <div class="carrito__item-unitario">
+                                        $ <%= product.price %>
+                                    </div>
+                                    <div class="carrito__item-subtotal">
+                                        $ <%= product.price * product.units %>
+                                    </div>
+                                    <div class="carrito__item-eliminar">
+                                        <button onclick="removeFromCart('<%= product.id ? product.id : product._id %>', '<%= cartId %>')">
+                                            <img src="/img/remove-icon.png" alt="Eliminar producto">
+                                        </button>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                        <div class="carrito__footer">
+                            <div class="row">
+                                <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                                    <button onclick="cleanCart('<%= cartId %>')" class="carrito__footer-boton">
+                                        Limpiar carrito
+                                    </button>
+                                </div>
+                                <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                                    <span class="carrito__total"> Total: $ <%= products.reduce((total, product) => { return total + (product.units * product.price); }, 0); %></span>
+                                </div>
+                                <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                                    <form id="checkout__form" action="/checkout" method="POST">
+                                        <button class="carrito__footer-boton">
+                                            Terminar Compra
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="row">
+                        <div class="col-12 carrito__empty">
+                            <p>EL CARRITO ESTÁ VACÍO</p>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <button class="carrito__boton-productos">
+                                <a href="/">Ver productos</a>
+                            </button>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>        
+    </main>
+    <script src="/js/cart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
