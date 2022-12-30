@@ -88,6 +88,10 @@ class Contenedor {
             logger.error(error);
         }
     }
+
+    async countDocuments() {
+        return await this.model.count();
+    }
 }
 
 module.exports = Contenedor;

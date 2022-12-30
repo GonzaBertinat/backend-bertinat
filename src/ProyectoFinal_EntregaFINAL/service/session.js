@@ -5,16 +5,14 @@ const DAOFactory = require('../daos/DAOFactory');
 const factory = new DAOFactory();
 const contenedorUsuarios = factory.createDAO('users');
 const contenedorCodigosTelefono = factory.createDAO('phoneCodes');
+const contenedorOrdenes = factory.createDAO('orders');
 
 const createCartService = async (req) => {
-    const { data: body } = await axios.post(`${req.protocol}://${req.get('host')}/graphql`, {
-        query: `
-            mutation {
-                createCart
-            }
-        `
+    const { data: body } = await axios.post(`${req.protocol}://${req.get('host')}/api/carrito`, {
+        email: req.user.email,
+        deliveryAddress: req.user.address
     });
-    const { createCart: id } = body.data;
+    const { id } = body;
     req.user.cartId = id;
     await contenedorUsuarios.update(req.user);
     return req.user;
@@ -29,20 +27,10 @@ const getUserWithCartService = async (req) => {
 
 const getProductsFromCartService = async (cartId, req) => {
     try {
-        const { data: body } = await axios.post(`${req.protocol}://${req.get('host')}/graphql`, {
-            query: `
-                query {
-                    getCartById(id: "${cartId}") {
-                        id,
-                        timestamp,
-                        products { id, title, description, price, thumbnail, code, stock, timestamp, units }
-                    }
-                }
-            `
-        });
+        const { data: body } = await axios.get(`${req.protocol}://${req.get('host')}/api/carrito/${cartId}/productos`);
         return {
             cartId,
-            products: body.data.getCartById.products
+            products: body
         };
     } catch(err) {
         // En caso de error, creamos un nuevo carrito y retornamos la lista vacía de productos
@@ -57,11 +45,23 @@ const getProductsFromCartService = async (cartId, req) => {
 const processPurchaseService = async (productos, userData) => {
     const { cartId, name, email, phone } = userData;
 
+    // 1. Registrar la orden 
+    const cantidadOrdenes = await contenedorOrdenes.countDocuments();
+    const newOrder = {
+        items: productos,
+        orderNumber: cantidadOrdenes + 1,
+        timestamp: Date.now(),
+        state: 'generada',
+        email
+    }
+
+    const orderId = await contenedorOrdenes.save(newOrder);
+
     const productosHtml = productos.map(producto => {
         return `<p> - (${producto.units}) x ${producto.title} ($ ${producto.price}) | $ ${producto.units * producto.price}</p>`
     }).join("\n");
 
-    // 1. Mail al admin del sitio 
+    // 2. Mail al admin del sitio 
     await sendMail({
         from: 'backend',
         to: ADMIN_MAIL,
@@ -71,11 +71,13 @@ const processPurchaseService = async (productos, userData) => {
         <p>Total a pagar: $ ${productos.reduce((total, producto) => { return total + (producto.units * producto.price); }, 0)}</p>`
     });
 
-    // 2. Mensaje de WhatsApp al admin del sitio
+    // 3. Mensaje de WhatsApp al admin del sitio
     await sendWhatsApp(`Nuevo pedido de ${name} | ${email}`, TWILIO_WHATSAPP_PHONE_NUMBER, ADMIN_PHONE_NUMBER);
     
-    // 3. Mensaje SMS al cliente que realizó el pedido
-    await sendSMS(`Estimado cliente: Su pedido ha sido recibido y se encuentra en proceso. Código de seguimiento: ${cartId}`, TWILIO_SMS_PHONE_NUMBER, `+${phone.prefix}${phone.number}`);
+    // 4. Mensaje SMS al cliente que realizó el pedido
+    await sendSMS(`Estimado cliente: Su pedido ha sido recibido y se encuentra en proceso. Código de seguimiento: ${orderId}`, TWILIO_SMS_PHONE_NUMBER, `+${phone.prefix}${phone.number}`);
+
+    return orderId;
 }
 
 const getInternationalPhoneCodesService = async () => {

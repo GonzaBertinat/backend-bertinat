@@ -4,6 +4,7 @@ const CarritosDAO = require(`../daos/carritos/CarritosDao${config.metodoPersiste
 const MensajesDAO = require(`../daos/mensajes/MensajesDao${config.metodoPersistencia.mensajes}`);
 const UsuariosDAO = require(`../daos/usuarios/UsuariosDao${config.metodoPersistencia.usuarios}`);
 const CodigosTelefonoDAO = require('../daos/codigosTelefono/CodigosTelefonoDaoArchivo');
+const OrdenesDAO = require(`../daos/ordenes/OrdenesDao${config.metodoPersistencia.ordenes}`);
 
 class DAOFactory {
 
@@ -23,6 +24,9 @@ class DAOFactory {
             }
             case 'phoneCodes': {
                 return CodigosTelefonoDAO.getInstance();
+            }
+            case 'orders': {
+                return OrdenesDAO.getInstance();
             }
             default: {
                 return null;

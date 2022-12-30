@@ -42,6 +42,7 @@ module.exports = {
     carritosCollection: process.env.COLECCION_CARRITOS,
     mensajesCollection: process.env.COLECCION_MENSAJES,
     usuariosCollection: process.env.COLECCION_USUARIOS,
+    ordenesCollection: process.env.COLECCION_ORDENES,
     session: {
         sessionSecret: process.env.SESSION_SECRET,
         cookieSecret: process.env.COOKIE_SECRET,
@@ -51,7 +52,8 @@ module.exports = {
         productos: process.env.METODO_PERSISTENCIA_PRODUCTOS,
         carritos: process.env.METODO_PERSISTENCIA_CARRITOS,
         mensajes: process.env.METODO_PERSISTENCIA_MENSAJES,
-        usuarios: process.env.METODO_PERSISTENCIA_USUARIOS
+        usuarios: process.env.METODO_PERSISTENCIA_USUARIOS,
+        ordenes: process.env.METODO_PERSISTENCIA_ORDENES
     },
     mailSender: {
         service: process.env.MAIL_SERVICE,
