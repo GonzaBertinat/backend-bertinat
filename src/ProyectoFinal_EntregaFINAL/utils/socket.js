@@ -15,19 +15,35 @@ const initializeSocket = (httpServer) => {
     const io = new IOServer(httpServer);
 
     io.on('connection', async (socket) => {
-    
-        const products = await productoRepo.getAll();
-        socket.emit('products', products.map(producto => {
-            const { id: productId, title, description, price, thumbnail, code, stock, timestamp, units } = producto;
-            return {
-                id: productId, title, description, price, thumbnail, code, stock, timestamp, units
+        socket.on('get-general-messages', async (data) => {
+            const messages = await mensajeRepo.getAll();
+            const normalizedData = normalizeMessages(messages);
+            socket.emit('messages', normalizedData);
+        });
+
+        socket.on('get-user-messages', async (data) => {
+            const messages = await mensajeRepo.getByEmail(data.email);
+            const normalizedData = normalizeMessages(messages);
+            socket.emit('messages', normalizedData);
+        });
+
+        socket.on('new-message', async (data) => {
+            const { message, type } = data;
+            message.type = 'usuario';
+            message.date = moment().tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY HH:mm:ss');
+            await mensajeRepo.save(new Mensaje(message));
+
+            let messages;
+            if(type === 'general'){
+                messages = await mensajeRepo.getAll();
+            } else {
+                messages = await mensajeRepo.getByEmail(message.email);
             }
-        }));
-    
-        const messages = await mensajeRepo.getAll();
-        const normalizedData = normalizeMessages(messages);
-        socket.emit('messages', normalizedData);
-    
+            
+            const normalizedData = normalizeMessages(messages);
+            io.sockets.emit('messages', normalizedData);
+        });
+
         socket.on('new-product', async (data) => {
             await productoRepo.save(new Producto(data));
             const products = await productoRepo.getAll();
@@ -37,21 +53,7 @@ const initializeSocket = (httpServer) => {
                     id: productId, title, description, price, thumbnail, code, stock, timestamp, units
                 }
             }));
-        })
-    
-        socket.on('new-message', async (message) => {
-            const user = await contenedorUsuarios.getByEmail(message.author.id);
-            message.author.nombre = user.name;
-            message.author.apellido = ""; 
-            message.author.edad = user.age;
-            message.author.avatar = user.avatar;
-            message.date = moment().tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY HH:mm:ss');
-            
-            await mensajeRepo.save(new Mensaje(message));
-            const messages = await mensajeRepo.getAll();
-            const normalizedData = normalizeMessages(messages);
-            io.sockets.emit('messages', normalizedData);
-        })
+        });
     });
 
     return io;

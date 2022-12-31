@@ -17,6 +17,15 @@ class MensajesDaoMongo extends ContenedorMongo {
         }
         return instance;
     }
+
+    async getByEmail(email){
+        try {
+            const result = await this.model.find({ email });
+            return result.map(data => new this.dto(data));
+        } catch(error) {
+            logger.error(error);
+        }
+    }
 }
 
 module.exports = MensajesDaoMongo;

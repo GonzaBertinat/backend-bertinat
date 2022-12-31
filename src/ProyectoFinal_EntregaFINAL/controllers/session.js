@@ -98,6 +98,19 @@ const doLogout = async (req, res) => {
     res.render('logout', { username: email });
 }
 
+const loadChat = async (req, res) => {
+    res.render('chat', { user: req.user, chatMode: 'general', email: '' });
+}
+
+const loadUserChat = async (req, res) => {
+    const { email } = req.params;
+    if(email === req.user.email){
+        res.render('chat', { user: req.user, chatMode: 'user', email });
+    } else {
+        res.render('forbidden', { user: req.user });
+    }
+}
+
 module.exports = {
     loadRoot,
     loadProducts,
@@ -112,5 +125,7 @@ module.exports = {
     postLogin,
     failSignUp,
     failLogin,
-    doLogout
+    doLogout,
+    loadChat,
+    loadUserChat
 }

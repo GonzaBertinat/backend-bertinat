@@ -1,10 +1,11 @@
 class MensajeDTO {
 
     constructor(data){
-        this.id = data.id; 
-        this.author = data.author; 
+        this.id = data.id;
+        this.email = data.email;
+        this.type = data.type;
         this.text = data.text;
-        this.date = data.date; 
+        this.date = data.date;
     }
 }
 

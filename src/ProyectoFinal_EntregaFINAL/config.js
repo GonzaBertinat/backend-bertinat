@@ -58,11 +58,15 @@ module.exports = {
     mailSender: {
         service: process.env.MAIL_SERVICE,
         port: process.env.MAIL_PORT,
-        pass: process.env.MAIL_PASS
+        pass: process.env.MAIL_PASS,
+        adminMail: process.env.MAIL_ADMIN_ACCOUNT
     },
     twilioConfig: {
         accountSid: process.env.TWILIO_ACCOUNT_SID,
-        authToken: process.env.TWILIO_AUTH_TOKEN
+        authToken: process.env.TWILIO_AUTH_TOKEN,
+        smsPhoneNumber: process.env.TWILIO_SMS_PHONE_NUMBER,
+        whatsappPhoneNumber: process.env.TWILIO_WHATSAPP_PHONE_NUMBER,
+        adminPhoneNumber: process.env.TWILIO_ADMIN_PHONE_NUMBER
     },
     modoEjecucion: process.env.MODO || 'FORK'
 }

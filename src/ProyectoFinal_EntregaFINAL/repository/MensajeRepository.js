@@ -65,6 +65,15 @@ class MensajeRepository {
             logger.error(error);
         }
     }
+
+    async getByEmail(email) {
+        try {
+            const dtos = await this.dao.getByEmail(email);
+            return dtos.map(dto => new Mensaje(dto));
+        } catch(error) {
+            logger.error(error);
+        }
+    }
 }
 
 module.exports = MensajeRepository;

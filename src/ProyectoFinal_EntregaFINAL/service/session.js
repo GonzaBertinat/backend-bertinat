@@ -1,11 +1,12 @@
 const axios = require('axios');
-const { sendMail, ADMIN_MAIL } = require('../utils/nodemailer');
-const { sendWhatsApp, sendSMS, TWILIO_WHATSAPP_PHONE_NUMBER, ADMIN_PHONE_NUMBER, TWILIO_SMS_PHONE_NUMBER } = require('../utils/twilio');
+const { sendMail } = require('../utils/nodemailer');
+const { sendWhatsApp, sendSMS } = require('../utils/twilio');
 const DAOFactory = require('../daos/DAOFactory');
 const factory = new DAOFactory();
 const contenedorUsuarios = factory.createDAO('users');
 const contenedorCodigosTelefono = factory.createDAO('phoneCodes');
 const contenedorOrdenes = factory.createDAO('orders');
+const config = require('../config');
 
 const createCartService = async (req) => {
     const { data: body } = await axios.post(`${req.protocol}://${req.get('host')}/api/carrito`, {
@@ -64,7 +65,7 @@ const processPurchaseService = async (productos, userData) => {
     // 2. Mail al admin del sitio 
     await sendMail({
         from: 'backend',
-        to: ADMIN_MAIL,
+        to: config.mailSender.adminMail,
         subject: `Nuevo pedido de ${name} | ${email}`,
         html: `<p>Se ha registrado un nuevo pedido con los siguientes productos:</p>
         ${productosHtml}
@@ -72,10 +73,10 @@ const processPurchaseService = async (productos, userData) => {
     });
 
     // 3. Mensaje de WhatsApp al admin del sitio
-    await sendWhatsApp(`Nuevo pedido de ${name} | ${email}`, TWILIO_WHATSAPP_PHONE_NUMBER, ADMIN_PHONE_NUMBER);
+    await sendWhatsApp(`Nuevo pedido de ${name} | ${email}`, config.twilioConfig.whatsappPhoneNumber, config.twilioConfig.adminPhoneNumber);
     
     // 4. Mensaje SMS al cliente que realizó el pedido
-    await sendSMS(`Estimado cliente: Su pedido ha sido recibido y se encuentra en proceso. Código de seguimiento: ${orderId}`, TWILIO_SMS_PHONE_NUMBER, `+${phone.prefix}${phone.number}`);
+    await sendSMS(`Estimado cliente: Su pedido ha sido recibido y se encuentra en proceso. Código de seguimiento: ${orderId}`, config.twilioConfig.smsPhoneNumber, `+${phone.prefix}${phone.number}`);
 
     return orderId;
 }

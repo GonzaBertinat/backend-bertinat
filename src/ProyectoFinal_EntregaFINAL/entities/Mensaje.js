@@ -1,15 +1,17 @@
 class Mensaje {
     
     #id
-    #author
+    #email
+    #type
     #text
     #date
 
     constructor(data){
         this.#id = data.id;
-        this.#author = data.author; 
+        this.#email = data.email;
+        this.#type = data.type;
         this.#text = data.text;
-        this.#date = data.date; 
+        this.#date = data.date;
     }
 
     get id() { return this.#id }
@@ -18,18 +20,24 @@ class Mensaje {
         this.#id = id;
     }
 
-    get author() { return this.#author }
+    get email() { return this.#email }
 
-    set author(author) {
-        this.#author = author;
+    set email(email) {
+        this.#email = email;
     }
+    
+    get type() { return this.#type }
 
+    set type(type) {
+        this.#type = type;
+    }
+    
     get text() { return this.#text }
 
     set text(text) {
         this.#text = text;
     }
-
+    
     get date() { return this.#date }
 
     set date(date) {

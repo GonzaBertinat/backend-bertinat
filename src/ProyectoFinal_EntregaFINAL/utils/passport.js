@@ -2,10 +2,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const logger = require('../utils/winston');
-const { sendMail, ADMIN_MAIL } = require('../utils/nodemailer');
+const { sendMail } = require('../utils/nodemailer');
 const DAOFactory = require('../daos/DAOFactory');
 const factory = new DAOFactory();
 const contenedorUsuarios = factory.createDAO('users');
+const config = require('../config');
 
 const createHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 
@@ -49,7 +50,7 @@ const signupStrategy = new LocalStrategy({
 
         sendMail({
             from: 'backend',
-            to: ADMIN_MAIL,
+            to: config.mailSender.adminMail,
             subject: 'Nuevo registro',
             html: `<p>Se ha registrado un nuevo usuario con los siguientes datos:</p>
             <p>Email: ${newUser.email}</p>

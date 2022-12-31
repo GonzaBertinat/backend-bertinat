@@ -1,14 +1,13 @@
 const { createTransport } = require('nodemailer');
 const { mailSender } = require('../config');
 const logger = require('../utils/winston');
-
-const ADMIN_MAIL = 'gonzalomarcelobertinat2@gmail.com';
+const config = require('../config');
 
 const transporter = createTransport({
     service: mailSender.service,
     port: Number(mailSender.port),
     auth: {
-        user: ADMIN_MAIL,
+        user: config.mailSender.adminMail,
         pass: mailSender.pass
     }
 });
@@ -23,6 +22,5 @@ const sendMail = async mailOptions => {
 }
 
 module.exports = { 
-    sendMail,
-    ADMIN_MAIL 
+    sendMail 
 };

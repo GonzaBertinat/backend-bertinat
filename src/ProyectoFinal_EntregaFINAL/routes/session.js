@@ -1,7 +1,9 @@
 const express = require('express');
 const passport = require('passport');
-const { loadRoot, loadProducts, loadProductsByCategory, loadProductById, loadCart, loadProfile, processPurchase, loadSignUp, 
-        loadLogin, postSignUp, postLogin, failSignUp, failLogin, doLogout } = require('../controllers/session');
+const { loadRoot, loadProducts, loadProductsByCategory, loadProductById, 
+        loadCart, loadProfile, processPurchase, loadSignUp, 
+        loadLogin, postSignUp, postLogin, failSignUp, 
+        failLogin, doLogout, loadChat, loadUserChat } = require('../controllers/session');
 const { checkAuthentication } = require('../middlewares/auth');
 const upload = require('../utils/multer');
 
@@ -36,5 +38,9 @@ router.get('/faillogin', failLogin);
 
 // Logout
 router.post('/logout', checkAuthentication, doLogout);
+
+// Chat
+router.get('/chat', checkAuthentication, loadChat);
+router.get('/chat/:email', checkAuthentication, loadUserChat);
 
 module.exports = router;
