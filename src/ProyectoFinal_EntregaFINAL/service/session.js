@@ -9,7 +9,7 @@ const contenedorOrdenes = factory.createDAO('orders');
 const config = require('../config');
 
 const createCartService = async (req) => {
-    const { data: body } = await axios.post(`${req.protocol}://${req.get('host')}/api/carrito`, {
+    const { data: body } = await axios.post(`${process.env.NODE_ENV === 'production' ? 'https' : 'http'}://${req.get('host')}/api/carrito`, {
         email: req.user.email,
         deliveryAddress: req.user.address
     });
@@ -28,7 +28,7 @@ const getUserWithCartService = async (req) => {
 
 const getProductsFromCartService = async (cartId, req) => {
     try {
-        const { data: body } = await axios.get(`${req.protocol}://${req.get('host')}/api/carrito/${cartId}/productos`);
+        const { data: body } = await axios.get(`${process.env.NODE_ENV === 'production' ? 'https' : 'http'}://${req.get('host')}/api/carrito/${cartId}/productos`);
         return {
             cartId,
             products: body
