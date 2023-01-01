@@ -915,6 +915,25 @@ textarea#mensaje {
     margin: 20px 0 0 0;
 }
 
+.forbidden {
+    background-color: red;
+    border: 2px solid black;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+
+.forbidden p {
+    margin: 0;
+}
+
+.forbidden p.forbidden_info {
+    font-size: 15px;
+    margin-top: 10px;
+}
+
 @media only screen and (max-width: 575px) {
     .menu__navegacion {
         padding-top: 10px;

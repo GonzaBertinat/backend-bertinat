@@ -34,6 +34,13 @@
                                 <li class="menu__navegacion__enlace">
                                     <a href="/carrito">Carrito</a>
                                 </li>
+                                <li class="menu__navegacion__enlace">
+                                    <% if(chatMode === 'general') { %>
+                                        <a href="/chat/<%= user.email %>">Chat Personal</a>
+                                    <% } else { %>
+                                        <a href="/chat">Chat General</a>
+                                    <% } %>
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -47,7 +54,7 @@
             <div id="mensajes" class="row">
                 <input id="chatMode" type="hidden" value="<%= chatMode %>" email="<%= email %>">
                 <div class="col-12">
-                    <h2 class="mt-3 mb-3">Centro de mensajes</h2>
+                    <h2 class="mt-3 mb-3"><%= chatMode === 'general' ? 'Canal de chat general' : 'Chat personalizado'%></h2>
                 </div>
                 <div class="col-12">
                     <form onsubmit="return sendMessage(this)">
