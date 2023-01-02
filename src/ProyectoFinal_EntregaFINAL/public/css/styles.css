@@ -497,12 +497,16 @@ textarea#mensaje {
     width: 70%;
 }
 
+.info-dato-seccion {
+    background-color: #1265ea;
+}
+
 .info-dato {
     align-items: center;
     border-bottom: 1px solid white;
     border-top: 1px solid white;
     display: flex;
-    padding: 5px 0;
+    padding: 5px 10px;
 }
 
 .info-dato span {

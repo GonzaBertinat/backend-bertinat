@@ -44,7 +44,7 @@ const getProductsFromCartService = async (cartId, req) => {
 }
 
 const processPurchaseService = async (productos, userData) => {
-    const { cartId, name, email, phone } = userData;
+    const { name, email, phone } = userData;
 
     // 1. Registrar la orden 
     const cantidadOrdenes = await contenedorOrdenes.countDocuments();

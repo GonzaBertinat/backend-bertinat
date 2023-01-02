@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="info-container">
+                <h1>Configuración del Servidor</h1>
+                <div class="info-datos">
+                    <div class="info-dato info-dato-seccion">
+                        <span class="info-dato__titulo">Parámetros generales</span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Puerto de escucha:</span>
+                        <span class="info-dato__valor"><%= datos.puertoEscucha %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Modo de ejecución</span>
+                        <span class="info-dato__valor"><%= datos.modo %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Secreto de Sesión</span>
+                        <span class="info-dato__valor"><%= '******' + datos.sessionSecret.slice(6) %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Secreto de Cookies</span>
+                        <span class="info-dato__valor"><%= '******' + datos.cookieSecret.slice(6) %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Tiempo de expiración de sesión</span>
+                        <span class="info-dato__valor"><%= datos.tiempoExpiracionSesion %> milisegundos </span>
+                    </div>
+                    <div class="info-dato info-dato-seccion">
+                        <span class="info-dato__titulo">Configuración para envío de mails</span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Servicio de mail</span>
+                        <span class="info-dato__valor"><%= datos.mailService %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Puerto</span>
+                        <span class="info-dato__valor"><%= datos.mailPort %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Mail del administrador</span>
+                        <span class="info-dato__valor"><%= datos.mailAdminAccount %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Clave</span>
+                        <span class="info-dato__valor"><%= '********' + datos.mailPass.slice(8) %></span>
+                    </div>
+                    <div class="info-dato info-dato-seccion">
+                        <span class="info-dato__titulo">Configuración de Twilio</span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">ID de cuenta</span>
+                        <span class="info-dato__valor"><%= datos.twilioAccountSID %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Token de cuenta</span>
+                        <span class="info-dato__valor"><%= '***************' + datos.twilioToken.slice(15) %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Número de teléfono - SMS</span>
+                        <span class="info-dato__valor"><%= datos.twilioSmsPhoneNumber %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Número de teléfono - WhatsApp</span>
+                        <span class="info-dato__valor"><%= datos.twilioWhatsappPhoneNumber %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Número de teléfono del Administrador</span>
+                        <span class="info-dato__valor"><%= datos.twilioAdminPhoneNumber %></span>
+                    </div>
+                    <div class="info-dato info-dato-seccion">
+                        <span class="info-dato__titulo">Método de Persistencia de cada Entidad</span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Productos</span>
+                        <span class="info-dato__valor"><%= datos.metodoPersistenciaProductos %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Carritos</span>
+                        <span class="info-dato__valor"><%= datos.metodoPersistenciaCarritos %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Mensajes</span>
+                        <span class="info-dato__valor"><%= datos.metodoPersistenciaMensajes %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Usuarios</span>
+                        <span class="info-dato__valor"><%= datos.metodoPersistenciaUsuarios %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Órdenes de compra</span>
+                        <span class="info-dato__valor"><%= datos.metodoPersistenciaOrdenes %></span>
+                    </div>
+                    <div class="info-dato info-dato-seccion">
+                        <span class="info-dato__titulo">Configuración de MongoDB</span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">String de Conexión</span>
+                        <span class="info-dato__valor"><%= '**************************************************' + datos.mongoUrl.slice(50) %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Colección de Productos</span>
+                        <span class="info-dato__valor"><%= datos.coleccionProductos %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Colección de Carritos</span>
+                        <span class="info-dato__valor"><%= datos.coleccionCarritos %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Colección de Mensajes</span>
+                        <span class="info-dato__valor"><%= datos.coleccionMensajes %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Colección de Usuarios</span>
+                        <span class="info-dato__valor"><%= datos.coleccionUsuarios %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Colección de Órdenes de Compra</span>
+                        <span class="info-dato__valor"><%= datos.coleccionOrdenes %></span>
+                    </div>
+                    <div class="info-dato info-dato-seccion">
+                        <span class="info-dato__titulo">Otras configuraciones</span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Path archivo de Códigos de Teléfono</span>
+                        <span class="info-dato__valor"><%= datos.codigosTelefonoPath %></span>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </main>
+</body>
+</html>

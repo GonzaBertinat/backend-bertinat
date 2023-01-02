@@ -1,9 +1,14 @@
-const { getServerInfoService } = require('../service/server');
+const { getServerInfoService, getServerConfigService } = require('../service/server');
 const logger = require('../utils/winston');
 
 const getServerInfo = (req, res) => {
     const datos = getServerInfoService();
     res.render('info', { datos });
+}
+
+const getServerConfig = (req, res) => {
+    const datos = getServerConfigService();
+    res.render('config', { datos });
 }
 
 const handleResourceNotFound = (req, res) => {
@@ -17,5 +22,6 @@ const handleResourceNotFound = (req, res) => {
 
 module.exports = {
     getServerInfo,
+    getServerConfig,
     handleResourceNotFound
 }
