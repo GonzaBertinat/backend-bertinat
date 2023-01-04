@@ -59,6 +59,10 @@ const UsuarioSchema = new mongoose.Schema({
         required: false, 
         maxLength: 50,
         trim: true
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true
     }
 });
 

@@ -41,7 +41,8 @@ const signupStrategy = new LocalStrategy({
                 prefix: phone_prefix,
                 number: phone_number
             },
-            avatar: filename
+            avatar: filename,
+            isAdmin: false
         }
 
         const id = await contenedorUsuarios.save(newUser);

@@ -10,6 +10,7 @@ class UsuarioDTO {
         this.phone = data.phone; 
         this.avatar = data.avatar; 
         this.cartId = data.cartId;
+        this.isAdmin = data.isAdmin;
     }
 }
 

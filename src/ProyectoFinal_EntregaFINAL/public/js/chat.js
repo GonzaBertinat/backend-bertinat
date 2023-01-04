@@ -23,14 +23,26 @@ socket.on('messages', messages => {
     if(denormalizedData.messages.length > 0) {
         // Se cargan los mensajes en la vista
         const html = denormalizedData.messages.map(message => {
-            return `<div class="mensaje">
-                <div class="mensaje__avatar">
-                    <img src="uploads/${'test'}">
-                </div>
-                <span class="mensaje__email">${message.email}</span>
-                [<span class="mensaje__fecha">${message.date}</span>] :
-                <span class="mensaje__texto">${message.text}</span>
-            </div>`
+            return  `<div class="mensaje">
+                        ${message.type === 'sistema' ?
+                            '<div class="mensaje__avatar">'
+                        +       '<img src="/img/verified.png">'
+                        +   '</div>' 
+                        +   '<span class="mensaje__email">Sistema</span>'
+                        +   '<div class="mensaje__flecha">'
+                        +       '<img src="/img/arrow.png" />'
+                        +   '</div>'
+                        +   '<div class="mensaje__avatar">'
+                        +       '<img src="/img/user.png">'
+                        +   '</div>'
+                        +   '<span class="mensaje__email">' + message.email + '</span>' 
+                        :   '<div class="mensaje__avatar">'
+                        +       '<img src="/img/user.png">'
+                        +   '</div>' 
+                        +   '<span class="mensaje__email">' + message.email + '</span>' }
+                        [ <span class="mensaje__fecha">${message.date}</span> ]
+                        : <span class="mensaje__texto">${message.text}</span>
+                    </div>`
         }).join(" ");
         messagesDiv.innerHTML = html;
     } else {
@@ -44,7 +56,8 @@ const sendMessage = e => {
 
     const message = {
         email: email.textContent,
-        text: mensaje.value
+        text: mensaje.value,
+        type: 'usuario'
     }
 
     socket.emit('new-message', {
@@ -53,5 +66,26 @@ const sendMessage = e => {
     });
 
     mensaje.value = '';
+    return false;
+}
+
+const sendAdminMessage = e => {
+
+    const destinatario = document.querySelector('#destinatario');
+    const respuesta = document.querySelector('#respuesta');
+
+    const message = {
+        email: destinatario.value,
+        text: respuesta.value,
+        type: 'sistema'
+    }
+
+    socket.emit('new-message', {
+        message,
+        type: tipoChat
+    });
+    
+    destinatario.value = '';
+    respuesta.value = '';
     return false;
 }

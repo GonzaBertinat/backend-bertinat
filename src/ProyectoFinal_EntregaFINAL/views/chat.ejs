@@ -57,6 +57,7 @@
                     <h2 class="mt-3 mb-3"><%= chatMode === 'general' ? 'Canal de chat general' : 'Chat personalizado'%></h2>
                 </div>
                 <div class="col-12">
+                    <h2 class="mensajes-title">Realizar una consulta</h2>
                     <form onsubmit="return sendMessage(this)">
                         <div class="row input-group align-items-center">
                             <div class="col-12 col-lg-4">
@@ -73,6 +74,36 @@
                 </div>
                 <div id="mensajes-container" class="col-12">
                 </div>
+                <% if(user.isAdmin && chatMode === 'general') { %>
+                    <div id="mensajes-admin">
+                        <div class="row">
+                            <div class="col-12">
+                                <h2>Responder mensajes</h2>
+                                <form onsubmit="return sendAdminMessage(this)">
+                                    <div class="row input-group align-items-center">
+                                        <div class="col-12 col-lg-4">
+                                            <label for="destinatario">Destinatario:</label>
+                                        </div>
+                                        <div class="col-12 col-lg-8">
+                                            <input id="destinatario" name="destinatario" type="email" maxlength="50" required="true">
+                                        </div>
+                                    </div>
+                                    <div class="row input-group align-items-center">
+                                        <div class="col-12 col-lg-4">
+                                            <label for="respuesta">Respuesta:</label>
+                                        </div>
+                                        <div class="col-12 col-lg-8">
+                                            <textarea id="respuesta" name="respuesta" type="text" 
+                                                      required="true" maxlength="140" 
+                                                      placeholder="Ingrese la respuesta..."></textarea>
+                                        </div>
+                                    </div>
+                                    <input class="submit" type="submit" value="Responder">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
             </div>
         </div>        
     </main>

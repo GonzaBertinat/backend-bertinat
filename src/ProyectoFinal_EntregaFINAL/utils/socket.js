@@ -7,7 +7,6 @@ const Producto = require('../entities/Producto');
 const Mensaje = require('../entities/Mensaje');
 const DAOFactory = require('../daos/DAOFactory');
 const factory = new DAOFactory();
-const contenedorUsuarios = factory.createDAO('users');
 const mensajeRepo = new MensajeRepository();
 const productoRepo = new ProductoRepository();
 
@@ -29,7 +28,6 @@ const initializeSocket = (httpServer) => {
 
         socket.on('new-message', async (data) => {
             const { message, type } = data;
-            message.type = 'usuario';
             message.date = moment().tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY HH:mm:ss');
             await mensajeRepo.save(new Mensaje(message));
 

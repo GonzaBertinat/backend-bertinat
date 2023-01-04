@@ -216,12 +216,12 @@ form {
     text-align: center;
 }
 
-#porcentaje-compresion {
-    margin-bottom: 10px;
-    text-align: center;
+.mensajes-title {
+    border-top: 2px solid black;
+    padding: 10px 0 0 0;
 }
 
-textarea#mensaje {
+textarea#mensaje, textarea#respuesta {
     height: 120px;
     padding: 5px;
     resize: none;
@@ -229,9 +229,11 @@ textarea#mensaje {
 }
 
 #mensajes-container {
+    border-bottom: 2px solid black;
     border-top: 2px solid black;
-    width: 80%;
+    padding: 15px 0;
     margin: 15px auto;
+    width: 80%;
 }
 
 .mensajes__empty {
@@ -263,11 +265,25 @@ textarea#mensaje {
     border-radius: 100%;
     display: inline-block;
     height: 30px;
+    margin: 0 6px 0 0;
     width: 30px;
 }
 
 .mensaje__avatar img {
     border-radius: 100%;
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+}
+
+.mensaje__flecha {
+    display: inline-block;
+    height: 20px;
+    margin: 0 5px;
+    width: 20px;
+}
+
+.mensaje__flecha img {
     height: 100%;
     width: 100%;
 }
