@@ -51,7 +51,6 @@ app.use(passport.session());
 // Logs
 app.use(logRequest);
 
-
 // GraphQL
 app.use('/graphql', new GraphQLController());
 

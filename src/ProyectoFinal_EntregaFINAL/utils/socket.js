@@ -41,17 +41,6 @@ const initializeSocket = (httpServer) => {
             const normalizedData = normalizeMessages(messages);
             io.sockets.emit('messages', normalizedData);
         });
-
-        socket.on('new-product', async (data) => {
-            await productoRepo.save(new Producto(data));
-            const products = await productoRepo.getAll();
-            io.sockets.emit('products', products.map(producto => {
-                const { id: productId, title, description, price, thumbnail, code, stock, timestamp, units } = producto;
-                return {
-                    id: productId, title, description, price, thumbnail, code, stock, timestamp, units
-                }
-            }));
-        });
     });
 
     return io;

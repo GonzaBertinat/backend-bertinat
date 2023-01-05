@@ -1,19 +1,11 @@
 const removeFromCart = (productId, cartId) => {
 
-    fetch(`/graphql`, {
-        method: 'POST',
+    fetch(`/api/carrito/${cartId}/productos/${productId}`, {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            query: `
-                mutation {
-                    deleteProductFromCart(cartId: "${cartId}", productId: "${productId}") {
-                        id
-                    }
-                }
-            `
-        })
+        body: JSON.stringify({})
     })
     .then(res => {
         if(res.status != 200){
@@ -22,7 +14,7 @@ const removeFromCart = (productId, cartId) => {
         return res.json();
     })
     .then(response => {
-        if(response.data?.deleteProductFromCart?.id){
+        if(response.ok){
             alert('Producto eliminado del carrito con éxito.');
             location.reload();
         } else {
@@ -34,18 +26,12 @@ const removeFromCart = (productId, cartId) => {
 
 const cleanCart = (cartId) => {
 
-    fetch(`/graphql`, {
-        method: 'POST',
+    fetch(`/api/carrito/${cartId}`, {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            query: `
-                mutation {
-                    deleteCart(id: "${cartId}")
-                }
-            `
-        })
+        body: JSON.stringify({})
     })
     .then(res => {
         if(res.status != 200){
@@ -54,7 +40,7 @@ const cleanCart = (cartId) => {
         return res.json();
     })
     .then(response => {
-        if(response.data?.deleteCart){
+        if(response.ok){
             location.reload();
         } else {
             alert('Error al limpiar el carrito, inténtelo más tarde.');
