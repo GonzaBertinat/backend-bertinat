@@ -58,7 +58,8 @@ En esta misma página ir hacia la parte superior y presionar el botón verde con
 ![Descarga - Paso 1](/src/assets/readme/step1.png)
 
 A continuación en 'Download ZIP':
-<img src="/src/assets/readme/step2.png" style="width: 330px;"></img>
+
+<div><img src="/src/assets/readme/step2.png" style="width: 330px;"></img></div>
 
 Una vez descargado, descomprimir el archivo zip e importar la carpeta 'src/ProyectoFinal_EntregaFINAL' dentro de nuestro IDE de preferencia para poder acceder al código fuente.
 
