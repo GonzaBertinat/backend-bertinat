@@ -50,12 +50,16 @@
                         <span class="info-dato__valor"><%= datos.mailPort %></span>
                     </div>
                     <div class="info-dato">
-                        <span class="info-dato__titulo">Mail del administrador</span>
-                        <span class="info-dato__valor"><%= datos.mailAdminAccount %></span>
+                        <span class="info-dato__titulo">Mail origen de notificaciones</span>
+                        <span class="info-dato__valor"><%= datos.mailOriginAccount %></span>
                     </div>
                     <div class="info-dato">
                         <span class="info-dato__titulo">Clave</span>
                         <span class="info-dato__valor"><%= '********' + datos.mailPass.slice(8) %></span>
+                    </div>
+                    <div class="info-dato">
+                        <span class="info-dato__titulo">Mail del administrador</span>
+                        <span class="info-dato__valor"><%= datos.mailAdminAccount %></span>
                     </div>
                     <div class="info-dato info-dato-seccion">
                         <span class="info-dato__titulo">Configuración de Twilio</span>

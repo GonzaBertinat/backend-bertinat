@@ -7,7 +7,7 @@ const transporter = createTransport({
     service: mailSender.service,
     port: Number(mailSender.port),
     auth: {
-        user: config.mailSender.adminMail,
+        user: config.mailSender.user,
         pass: mailSender.pass
     }
 });

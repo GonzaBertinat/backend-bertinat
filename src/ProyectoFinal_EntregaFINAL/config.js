@@ -63,6 +63,7 @@ module.exports = {
     mailSender: {
         service: process.env.MAIL_SERVICE,
         port: process.env.MAIL_PORT,
+        user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
         adminMail: process.env.MAIL_ADMIN_ACCOUNT
     },
