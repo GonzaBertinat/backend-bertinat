@@ -32,7 +32,8 @@ describe('Pruebas de API de Productos', () => {
                 price: 39999,
                 thumbnail: 'https://http2.mlstatic.com/D_NQ_NP_2X_868957-MLA51538271923_092022-F.webp',
                 code: 'XXX101',
-                stock: 10
+                stock: 10,
+                category: 'electrodomesticos'
             };
 
             const response = await request.post('/api/productos').send(nuevoProducto);
