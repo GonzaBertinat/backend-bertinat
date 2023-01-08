@@ -42,10 +42,10 @@ const loadProfile = async (req, res) => {
 }
 
 const processPurchase = async (req, res) => {
-    const { cartId, name, email, phone } = req.user;
+    const { cartId, name, email, phone, address } = req.user;
     const { products } = await getProductsFromCartService(cartId, req);
     // 1. Se procesa la compra 
-    const orderId = await processPurchaseService(products, { name, email, phone });
+    const orderId = await processPurchaseService(products, { name, email, phone, address });
     // 2. Se asigna un nuevo carrito vacío al usuario
     await createCartService(req);
     // 3. Se muestra vista de éxito en la compra al cliente

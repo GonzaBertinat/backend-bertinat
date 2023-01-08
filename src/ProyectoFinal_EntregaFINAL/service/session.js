@@ -44,7 +44,7 @@ const getProductsFromCartService = async (cartId, req) => {
 }
 
 const processPurchaseService = async (productos, userData) => {
-    const { name, email, phone } = userData;
+    const { name, email, phone, address } = userData;
 
     // 1. Registrar la orden 
     const cantidadOrdenes = await contenedorOrdenes.countDocuments();
@@ -69,7 +69,9 @@ const processPurchaseService = async (productos, userData) => {
         subject: `Nuevo pedido de ${name} | ${email}`,
         html: `<p>Se ha registrado un nuevo pedido con los siguientes productos:</p>
         ${productosHtml}
-        <p>Total a pagar: $ ${productos.reduce((total, producto) => { return total + (producto.units * producto.price); }, 0)}</p>`
+        <p>Total a pagar: $ ${productos.reduce((total, producto) => { return total + (producto.units * producto.price); }, 0)}</p>
+        <p>Número de Orden: ${newOrder.orderNumber}</p>
+        <p>Dirección de Entrega: ${address}</p>`
     });
 
     // 3. Mensaje de WhatsApp al admin del sitio
