@@ -10,6 +10,8 @@
     "start": "node server.js",
     "dev": "export NODE_ENV=development && nodemon server.js",
     "prod": "export NODE_ENV=production && node server.js",
+    "dev:windows": "set NODE_ENV=development && nodemon server.js",
+    "prod:windows": "set NODE_ENV=production && node server.js",
     "0x": "0x server.js"
   },
   "keywords": [],
