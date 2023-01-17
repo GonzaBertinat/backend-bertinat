@@ -1,7 +1,4 @@
 node_modules
 .DS_Store
-.env
 package-lock.json
 logs
-development.env
-production.env
